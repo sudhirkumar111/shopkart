@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-6 mx-auto">
+    {% if messages %}
+    {% for msg in messages %}
+    <p {% if msg.tags %} class="alert alert-{{msg.tags}}" {% endif %}>{{msg}}</p>
+
+    {% endfor %}
+
+    {% endif %} 
+</div>
+
+<div style="margin:auto; width: 50%;"><div class="jumbotron my-3  ">
+    <div class=" col-sm-10">
+        
+        <h1 class="display-5 my-2" >Resister Here to Shop</h1>
+    <hr>
+        
+            <form action="" method="POST" novalidate>
+              
+                {% for fm in form %}
+                <div class="form-group">
+                    {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+                </div>
+                {% endfor %}
+            <input type="submit" class="btn btn-lg btn-success" value="Signup">
+    
+                {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <p class="alert alert-warning">{{error}}</p>
+                {% endfor %}
+                {% endif %}
+                {% csrf_token %}
+            </form>
+            <!-- <h5>Already Registered, <a href="{% url 'login' %}">Login Here</a></h5> -->
+          
+    </div>
+    </div>
+
+
+
+
+
+{% endblock %}

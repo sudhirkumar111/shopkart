@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+         <div><br>
+            <img src="https://cdn.pixabay.com/photo/2016/12/10/20/23/black-friday-1898114_1280.jpg" class="d-block w-100" alt="">
+
+          </div>
+         
+          <div style="text-align: center;"><br>
+            <img src="https://cdn.pixabay.com/photo/2015/01/21/13/21/sale-606687_1280.png"  style="height:150px ;width:600px;" alt="">
+
+          </div>
+         
+
+<div class="container-fluid mt-5">
+  <div class="row">
+
+    <div class="col-lg-3 mx-auto">
+      <div class="card" style="width: 18rem;">
+        <div class="card-header">
+          Filter by Category
+        </div>
+        {% for category in categories %}
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item bg-dark"><a href="/?category={{category.id}}" class="text-light"><strong>{{category.name}}</strong></a></li>
+          
+        </ul>
+        {% endfor %}
+      </div>
+
+    </div>
+
+    <div class="col-lg-9">
+      <div class="row">
+
+        {% for product in products %}
+        
+        <div class="col-lg- mx-3">
+          <div class="card mx-auto bg-light mb-3" id={{product.id}} style="width: 18rem;">
+            <img class="card-img-top" style="height: 20rem;" src="{{product.img.url}}" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-title">{{product.name}}</p>
+              <p class="card-text"><b>{{product.desc}}</b></p>
+                <strong><small>Free Delivery</small></strong>
+
+              <div class="card-footer bg-dark text-light">
+                <strong>Rs. {{product.price}}</strong><br>
+                <button class=" btn btn-info btn-sm">Buy</button>  <button  class=" btn btn-success btn-sm float-right">Add to cart</button><br>
+               
+              </div>
+              
+            </div>
+          </div>
+        </div>
+				
+        {% endfor %}
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+{% endblock %}
