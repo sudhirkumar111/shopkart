@@ -1,41 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!-- 
 
-<div style="margin:auto;width:50%;">
-    <div class="jumbotron  my-3 mx-auto" style="width:400px ; height:500px">
-    <div class=" col-lg-7 my-0 mx-auto">
-        
-        <img src="https://cdn.pixabay.com/photo/2014/04/03/10/00/shopping-cart-309592_1280.png" style="width:150px; height:150px" alt="">
-        
-        <hr>
-        <h1>Login </h1>
-    
-        
-            <div style="width:200px ;">
-                <form action="" method="POST" novalidate>
-              
-                    {% for fm in form %}
-                    <div class="form-group">
-                        {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
-                    </div>
-                    {% endfor %}
-                <input type="submit" class="btn btn-sm btn-success" value="Login">
-        
-                    {% if form.non_field_errors %}
-                    {% for error in form.non_field_errors %}
-                        <p class="alert alert-warning">{{error}}</p>
-                    {% endfor %}
-                    {% endif %}
-                    {% csrf_token %}
-                </form>
-            </div>
-            <!-- <h5>Already Registered, <a href="{% url 'login' %}">Login Here</a></h5> -->
-          
-    <!-- </div>
-    </div>
-</div> -->
+
 <br><br>
 <div class="col-md-6 mx-auto">
     {% if messages %}
@@ -47,7 +14,7 @@
     {% endif %} 
 </div>
 
-<div class="card bg-light mx-auto my-5" style="width: 18rem;">
+<div class="card bg-light mx-auto shadow my-5" style="width: 18rem;">
     <div class="card-body">
         <img class="d-block mx-auto" src="https://cdn.pixabay.com/photo/2014/04/03/10/00/shopping-cart-309592_1280.png" style="width:150px; height:151px;" alt=""><hr>
       <h5 class="card-title">Login Here</h5>
@@ -61,7 +28,6 @@
         </div>
         {% endfor %}
     <input type="submit" class="btn btn-sm btn-info" value="Login">
-    <a href="{% url 'about' %}"> <button class=" btn btn-sm btn-danger text-light float-right">Forgot Password</button></a>
 
         {% if form.non_field_errors %}
         {% for error in form.non_field_errors %}
@@ -70,6 +36,7 @@
         {% endif %}
         {% csrf_token %}
     </form>
+    <a href="{% url 'password_reset' %}"> <button class="mt-1 btn btn-sm btn-danger text-light">Forgot Password</button></a>
 
       
      

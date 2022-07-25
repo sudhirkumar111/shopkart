@@ -138,3 +138,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'connect.sudhirkumar@gmail.com'
 EMAIL_HOST_PASSWORD = 'nykpctetmgjcpcpo'
 
+LOGOUT_REDIRECT_URL = 'login'
