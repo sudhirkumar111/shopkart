@@ -1,12 +1,12 @@
 from django.shortcuts import render
-from .models import Product, Category,Cart
+from .models import Product, Category,Cart, ShippingDetail
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.mail import EmailMessage, send_mail
 from django.conf import settings
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.models import User
-from .forms import SignUpForm
+from .forms import SignUpForm, ShippingForm
 from django.contrib import messages
 from django.template.loader import render_to_string
 
@@ -92,3 +92,19 @@ def show_cart(request):
         return render(request,'cart.html',{'cart':cart})
     else:
         return render(request,'cart.html')
+
+
+def shipping_view(request):
+
+    form = ShippingForm()
+    if request.method=='POST':
+        form=ShippingForm(request.POST)
+        if form.is_valid():
+               
+                form.save()
+                return HttpResponseRedirect('/payment/')
+    return render(request, 'shipping.html',{'form':form})
+
+
+def payment_view(request):
+    return render(request, 'payment.html')
