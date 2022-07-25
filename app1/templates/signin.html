@@ -53,7 +53,7 @@
       <h5 class="card-title">Login Here</h5>
       
      
-      <form method="POST" novalidate>
+      <form method='POST' novalidate>
               
         {% for fm in form %}
         <div class="form-group">
@@ -61,7 +61,7 @@
         </div>
         {% endfor %}
     <input type="submit" class="btn btn-sm btn-info" value="Login">
-    <input type="submit" class="btn btn-sm btn-danger float-right" value="Forgot Password">
+    <a href="{% url 'about' %}"> <button class=" btn btn-sm btn-danger text-light float-right">Forgot Password</button></a>
 
         {% if form.non_field_errors %}
         {% for error in form.non_field_errors %}
@@ -70,6 +70,7 @@
         {% endif %}
         {% csrf_token %}
     </form>
+
       
      
     </div>

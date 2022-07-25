@@ -4,6 +4,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.mail import EmailMessage, send_mail
 from django.conf import settings
+from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.models import User
 from .forms import SignUpForm
 from django.contrib import messages
@@ -56,12 +57,22 @@ def user_signup(request):
     form = SignUpForm()
     return render(request, 'signup.html',{'form':form})
 
-def login(request):
+def user_login(request):
     if request.method=='POST':
-        form = AuthenticationForm(request.POST)
+        form = AuthenticationForm(request=request,data=request.POST)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/')
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            print(username)
+            print(password)
+            user = authenticate(username=username,password=password)
+            if user is not None:
+                login(request,user)
+                print("login successful")
+                return HttpResponseRedirect('/')
     form = AuthenticationForm()
     return render(request,'signin.html',{'form':form})
 
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/')
