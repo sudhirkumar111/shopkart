@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Product, Category
+from .models import Product, Category,Cart
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.mail import EmailMessage, send_mail
@@ -76,3 +76,19 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/login/')
+
+def add_to_cart(request):
+        user= request.user
+        product_id =  request.GET.get('pid')
+        product = Product.objects.get(id=product_id)
+        Cart(product=product,user=user).save()
+        message.success(request,"Product Added Successfully")
+        return HttpResponseRedirect('/show-cart/')
+
+def show_cart(request):
+    if request.user.is_authenticated:
+        cart=Cart.objects.filter(user=request.user)
+        print(cart)
+        return render(request,'cart.html',{'cart':cart})
+    else:
+        return render(request,'cart.html')

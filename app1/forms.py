@@ -18,8 +18,8 @@ class SignUpForm(UserCreationForm):
 
 
 class MyPasswordResetForm(PasswordResetForm):
- email = forms.EmailField(label=("Email"), max_length=254, widget=forms.EmailInput(attrs={'autocomplete': 'email', 'class':'form-control'}))
+ email = forms.EmailField(label=("Email"), max_length=254, widget=forms.EmailInput(attrs={'placeholder':'Enter Your Email','autocomplete': 'email', 'class':'form-control'}))
 
 class MySetPasswordForm(SetPasswordForm):
-    new_password1 = forms.CharField(label=("New Password"), strip=False, widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'class':'form-control'})),
-    new_password2 = forms.CharField(label=("Confirm New Password"), strip=False, widget=forms.PasswordInput(attrs={'autocomplete': 'new-password','class':'form-control'}))
+    new_password1 = forms.CharField(label=("New Password"), strip=False, widget=forms.PasswordInput(attrs={'placeholder':'Username','autocomplete': 'new-password', 'class':'form-control'})),
+    new_password2 = forms.CharField(label=("Confirm New Password"), strip=False, widget=forms.PasswordInput(attrs={'placeholder':'Password','autocomplete': 'new-password','class':'form-control'}))
