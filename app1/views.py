@@ -18,7 +18,7 @@ def home(request):
          cart=Cart.objects.filter(user=request.user)
          
     else:
-        cart_length=None
+        cart=None
 
     categoryid = request.GET.get('category')
     if categoryid:
