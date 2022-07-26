@@ -4,28 +4,38 @@
 
 
 <div class="container mt-4">
-    <h1>Your Cart</h1>
+    
+  
     <div class="row">
         <div class="col-lg-9">
                 
     {% if request.user.is_authenticated %}
    
-
+   
+     {% if cart %}
+     <h1>Your Cart</h1>
     <table class="table shadow" style="width: 100%;">
         <thead>
             <tr>
                 <th>Product</th>
                 <th>Quantity</th>
-                <th>Price</th>
+                <th>Price </th>
+                <th></th>
             </tr>
         </thead>
-        <tbody >{% for cart in cart %}
+        <tbody >
+            
+            {% for cart in cart %}
             <tr>
                 <td><img style="width:50px;height: 60px;"src="{{cart.product.img.url}}" alt=""><br><small>{{cart.product.name}}</small></td>
                 <td>{{cart.quantity}}</td>
-                <td>₹ {{cart.product.price}}</td>
+                <td>₹ {{cart.product.price}} </td>
+                <td><a class= "btn btn-danger" href="{% url 'delete_cart_product' cart.id %}">Remove</a></td>
             </tr>
             {% endfor %}
+            {% else %}
+            <h1 class="display-4 alert alert-warning shadow">Cart is Empty, Please Add Product To Cart</h1>
+            {% endif %}
         </tbody>
     </table>{% else %}
     <div class="card mx-auto mt-5 shadow" style="width: 35rem;">
@@ -38,7 +48,7 @@
       </div>
        {% endif %}
         </div>
-        
+        {% if cart %}
         <div class="col-lg-3">
             <div class="card shadow" style="width: 18rem;">
                 <div class="card-body">
@@ -49,7 +59,7 @@
                 </div>
             </div>
 
-        </div>
+        </div>{% endif %}
     </div>
 
     

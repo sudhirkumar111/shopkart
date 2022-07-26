@@ -154,6 +154,14 @@ def delet_address(request,id):
         add.delete()
         messages.error(request, "Address Deleted Successfully")
         return HttpResponseRedirect('/address/')
+
+def delete_cart_product(request,id):
+    if request.user.is_authenticated:
+        product = Cart.objects.filter(user=request.user).get(id=id)
+       
+        product.delete()
+        # messages.error(request, "Address Deleted Successfully")
+        return HttpResponseRedirect('/show-cart/')
  
 
 def user_profile(request,id):
