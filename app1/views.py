@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from .forms import SignUpForm, ShippingForm
 from django.contrib import messages
 from django.template.loader import render_to_string
+from django.views.generic.detail import DetailView
 
 # Create your views here.
 def home(request):
@@ -151,6 +152,12 @@ def delet_address(request,id):
 def user_profile(request,id):
     user = User.objects.get(id=id)
     return render(request,'profile.html',{'user':user})
+
+class product_detail(DetailView):
+    model = Product
+    template_name = 'product_detail.html'
+    context_object_name = 'product'
+
 
 def payment_view(request):
     return render(request, 'payment.html')

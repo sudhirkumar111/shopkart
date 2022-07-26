@@ -40,7 +40,7 @@
         
         <div class="col-lg- mx-3">
           <div class="card mx-auto bg-light mb-3" id={{product.id}} style="width: 18rem;">
-            <img class="card-img-top" style="height: 20rem;" src="{{product.img.url}}" alt="Card image cap">
+            <a href="{% url 'product-detail' product.id %}"><img class="card-img-top" style="height: 20rem;" src="{{product.img.url}}" alt="Card image cap"></a>
             <div class="card-body">
               <p class="card-title">{{product.name}}</p>
               <p class="card-text"><b>{{product.desc}}</b></p>
@@ -50,11 +50,11 @@
                 <strong>Rs. {{product.price}}</strong><br>
 
 
-                <button class=" btn btn-info btn-sm">Buy</button>
+                <!-- <button class=" btn btn-info btn-sm">Buy</button> -->
                 <form action="/add-to-cart">
                  
-                    <input type="hidden" name='pid' id='pid'value="{{product.id}}">
-                  <button  class=" btn btn-success btn-sm float-right">Add to cart</button><br>
+                    <!-- <input type="hidden" name='pid' id='pid'value="{{product.id}}">
+                  <button  class=" btn btn-success btn-sm float-right">Add to cart</button><br> -->
 
                 </form>
                

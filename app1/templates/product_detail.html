@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-lg-4">
+            <img src="{{product.img.url}}" style="width:400px;height:455px" class="shadow rounded" alt="">
+            
+        </div>
+
+              <div class="col-lg-8 ">
+                <div class="card shadow" style="width: 45rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Product Detail</h5>
+                      <h5 class="text-muted">{{product.name}}</h5>
+                      <p>{{product.desc}}</p>
+                      <small class="text-success"><i class="bi bi-bookmark-fill"></i> Special Price</small>
+                      <p><strong>₹  {{product.price}}</strong></p>
+
+                      <strong>Available offers</strong><br>
+                      <p><i class="bi bi-tags-fill text-success"></i> 10% off on Axis Bank Credit Cards, up to ₹1250. On orders of ₹1500 and above.</p>
+                     <p><i class="bi bi-tags-fill text-success"></i> 5% off on Flipkart Axis Bank Co Brand Card, up to ₹625. On orders of ₹1500 and above</p>
+                      <p><i class="bi bi-tags-fill text-success"></i> 10% off on Kotak Bank Credit Cards, up to ₹1,500. On orders of ₹1,500 and above</p>
+                   <p><i class="bi bi-tags-fill text-success"></i> Flat ₹50 Cashback on Paytm Wallet; Min Trxn Value: ₹1,000; Valid once per Paytm account</p>
+                     <small><i class="bi bi-arrow-repeat text-danger"></i> 10 Days Return Policy</small>
+                     <br><small><i class="bi text-danger bi-backspace-reverse-fill"></i> Cash on delivery available</small>
+                      <a href="#" class="btn  float-right btn-success">Buy</a>
+                      <a href="#" class="btn float-right mr-2 btn-warning">Add To Cart</a>
+                    </div>
+              </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

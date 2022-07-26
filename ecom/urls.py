@@ -47,6 +47,7 @@ urlpatterns = [
     path('address/', views.address_view,name='address'),
     path('delete/<id>/', views.delet_address,name='delete'),
     path('profile/<id>/', views.user_profile,name='profile'),
+    path('product-detail/<pk>/', views.product_detail.as_view(),name='product-detail')
 
 
 
