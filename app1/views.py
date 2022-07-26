@@ -114,6 +114,40 @@ def shipping_view(request):
     form = ShippingForm()
     return render(request, 'shipping.html',{'form':form})
 
+def address_view(request):
+    if request.user.is_authenticated:
+        if request.method=='POST':
+            form=ShippingForm(request.POST)
+            if form.is_valid():
+                user=request.user
+                fname = form.cleaned_data['fname']
+                lname = form.cleaned_data['lname']
+                pincode = form.cleaned_data['pincode']
+                city = form.cleaned_data['city']
+                locality = form.cleaned_data['locality']
+                state = form.cleaned_data['state']
+                contact = form.cleaned_data['contact']
+                landmark =form.cleaned_data['landmark']
+                user_save=ShippingDetail(user=user,fname=fname,lname=lname,contact=contact,pincode=pincode,locality=locality,city=city,state=state,landmark=landmark)
+                user_save.save()
+                return HttpResponseRedirect('/address/')
+    
+        else:
+            form = ShippingForm()
+            address = ShippingDetail.objects.filter(user=request.user)
+            return render(request, 'show_address.html',{'address':address,'form':form})
+    
+
+
+def delet_address(request,id):
+    if request.user.is_authenticated:
+        add = ShippingDetail.objects.filter(user=request.user).get(id=id)
+        print(add.city)
+        add.delete()
+        messages.error(request, "Address Deleted Successfully")
+        return HttpResponseRedirect('/address/')
+ 
+
 
 def payment_view(request):
     return render(request, 'payment.html')

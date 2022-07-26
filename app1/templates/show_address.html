@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container mt-5">
+  <p class="display-4 mb-4">Manage Address</p><hr>
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="card shadow"  style="width: 25rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Available Address</h5>
+                  <hr>
+                    {% if address %}
+                    {% for add in address %}
+                    <strong class="text-muted">{{add.fname|title}} {{add.lname|title}}</strong>
+                    <p>{{add.locality|title}}, {{add.city|title}}, landmark - {{add.landmark|title}}, {{add.state|title}}, {{add.pincode|title}} 
+                      <br>
+                      Contact - {{add.contact}}
+                    </p>
+                    <a class="btn btn-danger btn-sm shadow" href="{% url 'delete' add.id%}">Delete</a>
+                    <hr>
+                    
+                    {% endfor %}
+                    {% else %} <small class="font-weight-bold ">No Address Available</small>
+                    {% endif %}
+
+
+                
+                </div>
+              </div>
+
+        </div>
+        
+          <div class="col-lg-7 ">
+            <div class="card shadow pt-3 px-5 mb-5" style="width: 40rem;">
+                <p class="display-4 ">Add Address  </p>
+                  <form action="" method="POST">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input type="submit" class="btn mb-2 btn-md btn-success" value="Add Address"><br>
+                  </form>
+                   
+                
+               
+            
+             
+        </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
