@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow" style="width: 25rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Profile Details</h5>
+                   <strong>Username</strong> <p>{{user.username}}</p><hr>
+                   <strong>First Name</strong><p>{{user.first_name|title}}</p><hr>
+                   <strong>Last Name</strong><p>{{user.last_name|title}}</p><hr>
+                   <strong>Email</strong><p>{{user.email|lower}}</p>
+                  
+
+                    
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}

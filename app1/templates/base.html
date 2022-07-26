@@ -47,6 +47,7 @@
             <strong>Welcome,</strong><span class="text-danger text-weight-bold">{{request.user.first_name|title}}</span>
             </a> 
             <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'profile' request.user.id %}">Profile</a>
               <a class="dropdown-item" href="#">Order</a>
               <a class="dropdown-item" href="{% url 'address' %}">Address</a>
               <a class="dropdown-item" href="/logout">Logout</a>

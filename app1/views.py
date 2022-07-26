@@ -148,6 +148,9 @@ def delet_address(request,id):
         return HttpResponseRedirect('/address/')
  
 
+def user_profile(request,id):
+    user = User.objects.get(id=id)
+    return render(request,'profile.html',{'user':user})
 
 def payment_view(request):
     return render(request, 'payment.html')
