@@ -40,7 +40,7 @@ urlpatterns = [
 
      path("password-reset-complete/", auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name="password_reset_complete"),
 
-    path('add-to-cart/', views.add_to_cart, name='add-to-cart'),
+    path('add-to-cart/<id>/', views.add_to_cart, name='add-to-cart'),
     path('show-cart/', views.show_cart, name='show-cart'),
     path('shipping-address/', views.shipping_view, name='shipping-detail'),
     path('payment/', views.payment_view,name='payment'),

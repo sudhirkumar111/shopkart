@@ -3,13 +3,14 @@
 {% block content %}
 
 
-<div class="container">
+<div class="container mt-4">
+    <h1>Your Cart</h1>
     <div class="row">
         <div class="col-lg-9">
                 
     {% if request.user.is_authenticated %}
-    <br>
-<h1>Your Cart</h1>
+   
+
     <table class="table shadow" style="width: 100%;">
         <thead>
             <tr>
@@ -18,11 +19,11 @@
                 <th>Price</th>
             </tr>
         </thead>
-        <tbody >{% for cart in cart%}
+        <tbody >{% for cart in cart %}
             <tr>
-                <td><img style="width:100px;height: 100px;"src="{{cart.product.img.url}}" alt=""><br>{{cart.product.name}}</td>
+                <td><img style="width:50px;height: 60px;"src="{{cart.product.img.url}}" alt=""><br><small>{{cart.product.name}}</small></td>
                 <td>{{cart.quantity}}</td>
-                <td>{{cart.product.price}}</td>
+                <td>₹ {{cart.product.price}}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -38,10 +39,12 @@
        {% endif %}
         </div>
         
-        <div class="col-lg-3 mt-5">
+        <div class="col-lg-3">
             <div class="card shadow" style="width: 18rem;">
                 <div class="card-body">
-                    <strong class="pr-5">Total Price</strong><span class="pl-5">Rs.{{300}}</span><br> 
+                    <strong class="pr-3">Total Amount</strong><span class="pl-5">
+                       
+                    </span>₹ {{total_amount}}<br> 
                   <a href="{% url 'shipping-detail' %}" class="float-right shadow mt-4 btn btn-sm btn-success">Check Out</a>
                 </div>
             </div>

@@ -14,6 +14,10 @@ from django.views.generic.detail import DetailView
 # Create your views here.
 def home(request):
     categories = Category.objects.all()
+    if request.user.is_authenticated:
+         cart=Cart.objects.filter(user=request.user)
+    else:
+        cart=None
 
     categoryid = request.GET.get('category')
     if categoryid:
@@ -22,7 +26,7 @@ def home(request):
         products = Product.objects.all()
 
 
-    return render(request,'home.html',{'products':products,'categories':categories})
+    return render(request,'home.html',{'products':products,'cart':cart,'categories':categories})
 
 
 def about(request):
@@ -78,19 +82,22 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/login/')
 
-def add_to_cart(request):
+def add_to_cart(request,id):
         user= request.user
-        product_id =  request.GET.get('pid')
-        product = Product.objects.get(id=product_id)
+        product = Product.objects.get(id=id)
         Cart(product=product,user=user).save()
-        message.success(request,"Product Added Successfully")
+        messages.success(request,"Product Added Successfully")
         return HttpResponseRedirect('/show-cart/')
 
 def show_cart(request):
     if request.user.is_authenticated:
         cart=Cart.objects.filter(user=request.user)
-        print(cart)
-        return render(request,'cart.html',{'cart':cart})
+        total_amount = 0
+        for item in cart:
+            total_amount+=item.product.price
+            
+        
+        return render(request,'cart.html',{'cart':cart,'total_amount':total_amount})
     else:
         return render(request,'cart.html')
 
