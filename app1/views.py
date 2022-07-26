@@ -16,8 +16,9 @@ def home(request):
     categories = Category.objects.all()
     if request.user.is_authenticated:
          cart=Cart.objects.filter(user=request.user)
+         
     else:
-        cart=None
+        cart_length=None
 
     categoryid = request.GET.get('category')
     if categoryid:
@@ -94,7 +95,7 @@ def show_cart(request):
         cart=Cart.objects.filter(user=request.user)
         total_amount = 0
         for item in cart:
-            total_amount+=item.product.price
+            total_amount+=item.product.price*item.quantity
             
         
         return render(request,'cart.html',{'cart':cart,'total_amount':total_amount})
@@ -176,3 +177,25 @@ class product_detail(DetailView):
 
 def payment_view(request):
     return render(request, 'payment.html')
+
+def plus_quantity(request,id):
+    if request.user.is_authenticated:
+        product = Cart.objects.filter(user=request.user).get(id=id)
+        plus = 1
+        plus+=product.quantity
+        print(plus) 
+        product.quantity=plus
+        product.save()
+        return HttpResponseRedirect('/show-cart/')
+
+def minus_quantity(request,id):
+    if request.user.is_authenticated:
+        product = Cart.objects.filter(user=request.user).get(id=id)
+        minus = 1
+        minus=product.quantity - minus
+        product.quantity=minus
+        if product.quantity==0:
+                product.delete()
+        product.save()
+        return HttpResponseRedirect('/show-cart/')
+        

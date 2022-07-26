@@ -18,7 +18,7 @@
         <thead>
             <tr>
                 <th>Product</th>
-                <th>Quantity</th>
+                <th>Quantity </th>
                 <th>Price </th>
                 <th></th>
             </tr>
@@ -28,7 +28,7 @@
             {% for cart in cart %}
             <tr>
                 <td><img style="width:50px;height: 60px;"src="{{cart.product.img.url}}" alt=""><br><small>{{cart.product.name}}</small></td>
-                <td>{{cart.quantity}}</td>
+                <td><a class="btn btn-sm btn-danger" href="{% url 'minus_quantity' cart.id  %}">-</a> {{cart.quantity}} <a class="btn btn-sm btn-success" href="{% url 'plus_quantity' cart.id %}">+</a></td>
                 <td>₹ {{cart.product.price}} </td>
                 <td><a class= "btn btn-danger" href="{% url 'delete_cart_product' cart.id %}">Remove</a></td>
             </tr>
