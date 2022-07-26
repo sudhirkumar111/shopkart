@@ -61,7 +61,7 @@ STATE_CHOICES = (
   ('West Bengal','West Bengal'),
 )
 class ShippingDetail(models.Model):
-        user = models.ForeignKey(User, on_delete=models.CASCADE,default='SUDHIR')
+        user = models.ForeignKey(User, on_delete=models.CASCADE)
         fname = models.CharField(max_length=50)
         lname = models.CharField(max_length=50)
         pincode = models.IntegerField()

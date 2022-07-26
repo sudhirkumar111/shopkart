@@ -95,14 +95,23 @@ def show_cart(request):
 
 
 def shipping_view(request):
-
-    form = ShippingForm()
     if request.method=='POST':
         form=ShippingForm(request.POST)
         if form.is_valid():
-               
-                form.save()
+                user=request.user
+                fname = form.cleaned_data['fname']
+                lname = form.cleaned_data['lname']
+                pincode = form.cleaned_data['pincode']
+                city = form.cleaned_data['city']
+                locality = form.cleaned_data['locality']
+                state = form.cleaned_data['state']
+                contact = form.cleaned_data['contact']
+                landmark =form.cleaned_data['landmark']
+                user_save=ShippingDetail(user=user,fname=fname,lname=lname,contact=contact,pincode=pincode,locality=locality,city=city,state=state,landmark=landmark)
+                user_save.save()
+                messages.success(request, "Shipping Detail Added Successfully")
                 return HttpResponseRedirect('/payment/')
+    form = ShippingForm()
     return render(request, 'shipping.html',{'form':form})
 
 

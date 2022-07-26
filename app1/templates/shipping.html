@@ -3,16 +3,19 @@
 {% block content %}
 
 {% if request.user.is_authenticated %}
-<form action="{% url 'payment' %}" method="POST">
+<form action="" method="POST">
 <div class="container my-5">
     
     <div class="row">
         <div class="col-lg-8 mx-auto">
             <div class="card shadow pt-3 px-5 mb-5" style="width: 40rem;">
                 <p class="display-4 mb-5">Shipping Detail</p>
-                {% csrf_token %}
-                {{form.as_p}}
-                <input type="submit" class="btn btn-sm btn-dark" value="Proceed">
+                
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input type="submit" class="btn btn-sm btn-dark" value="Proceed">
+                
+               
             
              </div>
         </div>
