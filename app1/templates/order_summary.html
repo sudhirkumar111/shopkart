@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container mt-4">
+    <h1 class="bg-dark mb-4 text-warning">Order Summary</h1>
+  
+    <div class="row"> 
+        <div class="col-lg-8">
+                
+    {% if request.user.is_authenticated %}
+   
+   
+     {% if order %}
+    
+    <table class="table shadow" style="width: 100%;">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity </th>
+                <th>Price </th>
+             
+            </tr>
+        </thead>
+        <tbody >
+            
+            {% for order in order %}
+            <tr>
+                <td><img style="width:50px;height: 60px;"src="{{order.product.img.url}}" alt=""><br><small>{{order.product.name}}</small></td>
+                <td>{{order.quantity}}</td>
+                <td>₹ {{order.product.price}} </td>
+            
+            {% endfor %}
+           
+            </tr>
+
+            {% else %}
+            <h1 class="display-4 alert alert-info  shadow">Cart is Empty, Please Add Product To Cart</h1>
+            {% endif %}
+        </tbody>
+    </table>
+    <div class="float-right my-2">
+        <strong>Total Amount</strong> <span class="ml-4">{{total_amount}}</span>  
+    </div>
+    {% else %}
+    
+            <p class="display-4 alert alert-info ">You have not placed any order, please shop..</p>
+
+        
+       {% endif %}
+        </div>
+        
+            <div class="col-lg-3">
+                <div class="card shadow" style="width:30rem" >
+                    <div class="card-body">
+    
+                      <h5 class="card-title">Select Address</h5><hr>
+                      <form action="/payment">
+                        {% if request.user.is_authenticated %}
+                        {% for add in address %}
+                        <span> <input type="radio" name="cust_add" id="{{add.id}}" value="{{add.id}}" ></span>
+                        <strong class="text-muted">{{add.fname|title}} {{add.lname|title}}</strong>
+                        <p>{{add.locality|title}}, {{add.city|title}}, landmark - {{add.landmark|title}}, {{add.state|title}}, {{add.pincode|title}} 
+                          <br>
+                          Contact - {{add.contact}}
+                        </p>
+                       
+    
+                        {% endfor %}
+                        <button type="submit" class="btn float-right font-weight-bold btn-success">Continue</button>
+                      </form>
+                   
+                      
+                      
+                  {% endif %}
+                    </div>
+                  </div>
+              
+            </div>
+        
+
+     
+    </div>
+
+    
+
+
+
+</div>
+
+
+
+
+ 
+
+
+
+
+
+{% endblock %}

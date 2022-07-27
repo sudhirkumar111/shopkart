@@ -4,16 +4,16 @@
 
 
 <div class="container mt-4">
-    
+    <h1 class="bg-dark mb-4 text-warning">Your Cart</h1>
   
-    <div class="row">
+    <div class="row"> 
         <div class="col-lg-9">
                 
     {% if request.user.is_authenticated %}
    
    
      {% if cart %}
-     <h1>Your Cart</h1>
+    
     <table class="table shadow" style="width: 100%;">
         <thead>
             <tr>
@@ -34,7 +34,7 @@
             </tr>
             {% endfor %}
             {% else %}
-            <h1 class="display-4 alert alert-warning shadow">Cart is Empty, Please Add Product To Cart</h1>
+            <h1 class="display-4 alert alert-info  shadow">Cart is Empty, Please Add Product To Cart</h1>
             {% endif %}
         </tbody>
     </table>{% else %}
@@ -55,7 +55,7 @@
                     <strong class="pr-3">Total Amount</strong><span class="pl-5">
                        
                     </span>₹ {{total_amount}}<br> 
-                  <a href="{% url 'shipping-detail' %}" class="float-right shadow mt-4 btn btn-sm btn-success">Check Out</a>
+                  <a href="{% url 'order_summary' %}" class="float-right shadow mt-4 btn btn-sm btn-success">Place Order</a>
                 </div>
             </div>
 
@@ -67,29 +67,6 @@
 
 
 </div>
-
-<!-- a
-    <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        {% for product in cart %}
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>{{product.img.url}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.price}}</td>
-          </tr>
-        </tbody>
-        {% endfor %}
-        </table> -->
-  
 
 
 

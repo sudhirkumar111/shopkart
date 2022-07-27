@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Product, Category,Cart, ShippingDetail
+from .models import Product, Category,Cart, ShippingDetail,OrderPlaced,STATUS_CHOICES
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.mail import EmailMessage, send_mail
@@ -175,8 +175,9 @@ class product_detail(DetailView):
     context_object_name = 'product'
 
 
-def payment_view(request):
-    return render(request, 'payment.html')
+
+        
+
 
 def plus_quantity(request,id):
     if request.user.is_authenticated:
@@ -191,11 +192,54 @@ def plus_quantity(request,id):
 def minus_quantity(request,id):
     if request.user.is_authenticated:
         product = Cart.objects.filter(user=request.user).get(id=id)
+        
         minus = 1
         minus=product.quantity - minus
         product.quantity=minus
+        print(product.quantity)
         if product.quantity==0:
                 product.delete()
+                return HttpResponseRedirect('/show-cart/')
         product.save()
         return HttpResponseRedirect('/show-cart/')
         
+def order_summary(request):
+    if request.user.is_authenticated:
+        order = Cart.objects.filter(user=request.user)
+        total_amount = 0
+        for item in order:
+            total_amount+=item.product.price*item.quantity
+            
+        address = ShippingDetail.objects.filter(user=request.user)
+        return render(request,'order_summary.html',{'total_amount':total_amount,'order':order,'address':address})
+    else:
+        return render(request,'order_summary.html')
+
+def payment_view(request):
+    if request.user.is_authenticated:
+        add_id = request.GET.get('cust_add')
+        user=request.user
+        cartid = Cart.objects.filter(user = user)
+        ship_detail = ShippingDetail.objects.get(id=add_id)
+        for cid in cartid:
+            OrderPlaced(user=user, ship_add=ship_detail, product=cid.product, quantity=cid.quantity).save()
+            cid.delete()
+        return HttpResponseRedirect('/orders/')
+	      
+
+def orders(request):
+    if request.user.is_authenticated:
+        order_placed = OrderPlaced.objects.filter(user=request.user)
+        return render(request,'order_placed.html',{'order_placed':order_placed})
+
+def cancel_order(request,id):
+    if request.user.is_authenticated:
+        get_order = OrderPlaced.objects.get(id=id)
+        print(get_order)
+        get_order.status=STATUS_CHOICES[4][0]
+        print(STATUS_CHOICES[4][0])
+        get_order.save()
+        return HttpResponseRedirect('/orders/')
+
+
+       

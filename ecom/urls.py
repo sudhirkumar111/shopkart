@@ -50,7 +50,10 @@ urlpatterns = [
     path('profile/<id>/', views.user_profile,name='profile'),
     path('product-detail/<pk>/', views.product_detail.as_view(),name='product-detail'),
     path('plus_quantity/<id>/', views.plus_quantity,name='plus_quantity'),
-    path('minus_quantity/<id>/', views.minus_quantity,name='minus_quantity')
+    path('minus_quantity/<id>/', views.minus_quantity,name='minus_quantity'),
+    path('order-summary/', views.order_summary,name='order_summary'),
+    path('orders/', views.orders,name='orders'),
+    path('cancel/<id>/', views.cancel_order,name='cancel')
 
 
 
