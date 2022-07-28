@@ -68,10 +68,16 @@
                        
     
                         {% endfor %}
-                        <button type="submit" class="btn float-right font-weight-bold btn-success">Continue</button>
+                        <button type="submit" onclick="show()" class="btn float-right font-weight-bold btn-success">Continue</button>
                       </form>
-                   
+                      <script>
+                             function show(){
+                        alert("Order Placed Successfully!")
+                      }
+                      </script>
+                     
                       
+                           
                       
                   {% endif %}
                     </div>

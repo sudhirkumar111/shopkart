@@ -28,7 +28,6 @@ urlpatterns = [
     path('signup/',views.user_signup, name='signup'),
     path('login/',views.user_login, name='login'),
     path('logout/',views.user_logout, name='logout'),
-    # path('category/',views.category, name='category'),
 
     # form to enter email
     path("password-reset/", auth_views.PasswordResetView.as_view(template_name='password_reset.html', form_class=MyPasswordResetForm), name="password_reset"),
@@ -38,7 +37,7 @@ urlpatterns = [
 
     path("password-reset-confirm/<uidb64>/<token>/", auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html', form_class=MySetPasswordForm), name="password_reset_confirm"),
 
-     path("password-reset-complete/", auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name="password_reset_complete"),
+    path("password-reset-complete/", auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name="password_reset_complete"),
 
     path('add-to-cart/<id>/', views.add_to_cart, name='add-to-cart'),
     path('show-cart/', views.show_cart, name='show-cart'),
@@ -55,6 +54,7 @@ urlpatterns = [
     path('orders/', views.orders,name='orders'),
     path('cancel/<id>/', views.cancel_order,name='cancel'),
     path('buy/<id>/', views.buynow,name='buy'),
+    path('order_success/',views.order_success,name='order_success')
 
 
 

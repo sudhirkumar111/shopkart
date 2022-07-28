@@ -1,48 +1,55 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="col-md-6 mx-auto">
-    {% if messages %}
-    {% for msg in messages %}
-    <p {% if msg.tags %} class="alert alert-{{msg.tags}}" {% endif %}>{{msg}}</p>
-
-    {% endfor %}
-
-    {% endif %} 
-
-
-    <div class="card bg-light shadow mx-auto my-5" style="width: 30rem;">
-        <div class="card-body">
-            <img class="d-block mx-auto" src="https://cdn.pixabay.com/photo/2014/04/03/10/00/shopping-cart-309592_1280.png" style="width:150px; height:151px;" alt="">
-            <hr>
-          <h5 class="card-title display-4">Register Here</h5>
-          
-         
-          <form action="" method="POST" novalidate>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            {% if messages %}
+            {% for msg in messages %}
+            <p {% if msg.tags %} class="alert alert-{{msg.tags}}" {% endif %}>{{msg}}</p>
+        
+            {% endfor %}
+        
+            {% endif %} 
+        
+        
+            <div class="card bg-light shadow mx-auto my-5" style="width: 30rem;">
+                <div class="card-body">
+                    <img class="d-block mx-auto" src="https://cdn.pixabay.com/photo/2014/04/03/10/00/shopping-cart-309592_1280.png" style="width:150px; height:151px;" alt="">
+                    <hr>
+                  <h5 class="card-title display-4">Register Here</h5>
                   
-            {% for fm in form %}
-            <div class="form-group">
-                {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
-            </div>
-            {% endfor %}
+                 
+                  <form action="" method="POST" novalidate>
+                          
+                    {% for fm in form %}
+                    <div class="form-group">
+                        {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+                    </div>
+                    {% endfor %}
+        
+                        <button type="submit" class="btn btn-md btn-success">Register</button><br> <br>
+                       
+                        <a href="/login"><button type="button" class="btn btn-md btn-dark">Login</button></a> 
+                        <strong>Already , Registerd</strong>
+                    
+                        
+                     
+                    {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <p class="alert alert-warning">{{error}}</p>
+                    {% endfor %}
+                    {% endif %}
+                    {% csrf_token %}
+                </form>
+                  
+                 
+                </div>
+              </div>
+        
 
-                <button type="submit" class="btn btn-md btn-success">Register</button><br> <br>
-               
-                <a href="/login"><button type="button" class="btn btn-md btn-dark">Login</button></a> 
-                <strong>Already , Registerd</strong>
-            
-                
-             
-            {% if form.non_field_errors %}
-            {% for error in form.non_field_errors %}
-                <p class="alert alert-warning">{{error}}</p>
-            {% endfor %}
-            {% endif %}
-            {% csrf_token %}
-        </form>
-          
-         
-        </div>
-      </div>
+    </div>
+
+</div>
 
 {% endblock %}

@@ -32,6 +32,8 @@ def home(request):
 
     return render(request,'home.html',{'products':products,'cart':cart,'categories':categories})
 
+def about(request):
+    return render(request,'about.html')
 
 def about(request):
     return render(request,'about.html')
@@ -263,3 +265,7 @@ def buynow(request,id):
         return HttpResponseRedirect('/order-summary')
     else:
             return HttpResponseRedirect('/login/')
+
+
+def order_success(request):
+    return render(request,'order_placed_successfully.html')

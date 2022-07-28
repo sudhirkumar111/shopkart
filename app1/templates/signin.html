@@ -4,45 +4,52 @@
 
 
 <br><br>
-<div class="col-md-6 mx-auto">
-    {% if messages %}
-    {% for msg in messages %}
-    <p {% if msg.tags %} class="mx-auto alert alert-{{msg.tags}}" {% endif %}>{{msg}}</p>
-
-    {% endfor %}
-
-    {% endif %} 
-</div>
-
-<div class="card  mx-auto shadow bg-light my-3" style="width: 18rem;">
-    <div class="card-body">
-        <img class="d-block mx-auto" src="https://cdn.pixabay.com/photo/2014/04/03/10/00/shopping-cart-309592_1280.png" style="width:150px; height:151px;" alt=""><hr>
-      <h5 class="card-title">Login Here</h5>
-      
-     
-      <form method='POST' novalidate>
-              
-        {% for fm in form %}
-        <div class="form-group">
-            {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6 mx-auto">
+                {% if messages %}
+                {% for msg in messages %}
+                <p {% if msg.tags %} class="mx-auto alert alert-{{msg.tags}}" {% endif %}>{{msg}}</p>
+            
+                {% endfor %}
+            
+                {% endif %} 
+            </div>
+            
+            <div class="card  mx-auto shadow bg-light my-3" style="width: 18rem;">
+                <div class="card-body">
+                    <img class="d-block mx-auto" src="https://cdn.pixabay.com/photo/2014/04/03/10/00/shopping-cart-309592_1280.png" style="width:150px; height:151px;" alt=""><hr>
+                  <h5 class="card-title">Login Here</h5>
+                  
+                 
+                  <form method='POST' novalidate>
+                          
+                    {% for fm in form %}
+                    <div class="form-group">
+                        {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+                    </div>
+                    {% endfor %}
+                <input type="submit" class="btn btn-sm btn-info" value="Login">
+            
+                    {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <p class="alert alert-warning">{{error}}</p>
+                    {% endfor %}
+                    {% endif %}
+                    {% csrf_token %}
+                </form>
+                <a href="{% url 'password_reset' %}"> <button class="mt-1 btn btn-sm btn-danger text-light">Forgot Password</button></a>
+            
+                  
+                 
+                </div>
+              </div>
+            
+            
+            
         </div>
-        {% endfor %}
-    <input type="submit" class="btn btn-sm btn-info" value="Login">
-
-        {% if form.non_field_errors %}
-        {% for error in form.non_field_errors %}
-            <p class="alert alert-warning">{{error}}</p>
-        {% endfor %}
-        {% endif %}
-        {% csrf_token %}
-    </form>
-    <a href="{% url 'password_reset' %}"> <button class="mt-1 btn btn-sm btn-danger text-light">Forgot Password</button></a>
-
-      
-     
     </div>
-  </div>
-
-
+</div>
 
 {% endblock %}
