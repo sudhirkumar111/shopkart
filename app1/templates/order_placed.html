@@ -20,6 +20,7 @@
                             
                             <th scope="col">Price</th>
                             <th scope="col">Quantity</th>
+                            <th scope="col">Date</th>
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
                           </tr>
@@ -33,6 +34,7 @@
                             <td>{{op.product.price}}</td>
 
                             <td>{{op.quantity}}</td>
+                            <td>{{op.ordered_date}}</td>
                             <td>{{op.status}}</td>
                             <td>{% if op.status == 'Cancel' %}
                                 <small>Order Cancelled</small>

@@ -27,7 +27,7 @@ urlpatterns = [
     path('about/',views.about, name='about'),
     path('signup/',views.user_signup, name='signup'),
     path('login/',views.user_login, name='login'),
-    path('logout/',views.user_logout, name='login'),
+    path('logout/',views.user_logout, name='logout'),
     # path('category/',views.category, name='category'),
 
     # form to enter email
@@ -48,12 +48,13 @@ urlpatterns = [
     path('delete/<id>/', views.delet_address,name='delete'),
     path('delete-cart-product/<id>/', views.delete_cart_product,name='delete_cart_product'),
     path('profile/<id>/', views.user_profile,name='profile'),
-    path('product-detail/<pk>/', views.product_detail.as_view(),name='product-detail'),
+    path('product-detail/<id>/', views.product_detail,name='product-detail'),
     path('plus_quantity/<id>/', views.plus_quantity,name='plus_quantity'),
     path('minus_quantity/<id>/', views.minus_quantity,name='minus_quantity'),
     path('order-summary/', views.order_summary,name='order_summary'),
     path('orders/', views.orders,name='orders'),
-    path('cancel/<id>/', views.cancel_order,name='cancel')
+    path('cancel/<id>/', views.cancel_order,name='cancel'),
+    path('buy/<id>/', views.buynow,name='buy'),
 
 
 

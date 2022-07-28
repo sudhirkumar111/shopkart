@@ -10,6 +10,9 @@ from .forms import SignUpForm, ShippingForm
 from django.contrib import messages
 from django.template.loader import render_to_string
 from django.views.generic.detail import DetailView
+from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 def home(request):
@@ -83,12 +86,20 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/login/')
 
+@login_required()
 def add_to_cart(request,id):
         user= request.user
         product = Product.objects.get(id=id)
-        Cart(product=product,user=user).save()
-        messages.success(request,"Product Added Successfully")
-        return HttpResponseRedirect('/show-cart/')
+        item_exist = False
+        item_exist = Cart.objects.filter(Q(product=product) & Q(user=request.user)).exists()
+        if item_exist == False:
+            product = Product.objects.get(id=product.id)
+            Cart(user=user,product=product).save()
+            print(item_exist)
+            return HttpResponseRedirect('/show-cart')
+        else:
+            return HttpResponseRedirect('/show-cart/')
+    
 
 def show_cart(request):
     if request.user.is_authenticated:
@@ -169,11 +180,12 @@ def user_profile(request,id):
     user = User.objects.get(id=id)
     return render(request,'profile.html',{'user':user})
 
-class product_detail(DetailView):
-    model = Product
-    template_name = 'product_detail.html'
-    context_object_name = 'product'
-
+def product_detail(request,id):
+    product = Product.objects.get(id=id)
+    item_exist = False
+    if request.user.is_authenticated:
+        item_exist = Cart.objects.filter(Q(product=product) & Q(user=request.user)).exists()
+    return render(request,'product_detail.html',{'product':product,'item_exist':item_exist})
 
 
         
@@ -229,7 +241,7 @@ def payment_view(request):
 
 def orders(request):
     if request.user.is_authenticated:
-        order_placed = OrderPlaced.objects.filter(user=request.user)
+        order_placed = OrderPlaced.objects.filter(user=request.user).order_by('-ordered_date')
         return render(request,'order_placed.html',{'order_placed':order_placed})
 
 def cancel_order(request,id):
@@ -242,4 +254,12 @@ def cancel_order(request,id):
         return HttpResponseRedirect('/orders/')
 
 
-       
+def buynow(request,id):
+    if request.user.is_authenticated:
+        user= request.user
+        product= Product.objects.get(id=id)
+        product2= Product.objects.get(id=product.id)
+        Cart(user=user,product=product).save()            
+        return HttpResponseRedirect('/order-summary')
+    else:
+            return HttpResponseRedirect('/login/')

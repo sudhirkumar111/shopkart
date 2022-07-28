@@ -26,8 +26,32 @@
                    <p><i class="bi bi-tags-fill text-success"></i> Flat ₹50 Cashback on Paytm Wallet; Min Trxn Value: ₹1,000; Valid once per Paytm account</p>
                      <small><i class="bi bi-arrow-repeat text-danger"></i> 10 Days Return Policy</small>
                      <br><small><i class="bi text-danger bi-backspace-reverse-fill"></i> Cash on delivery available</small>
-                      <a href="#" class="btn  float-right btn-success">Buy</a>
-                      <a href="{% url 'add-to-cart' product.id%}" class="btn float-right mr-2 btn-warning">Add To Cart</a>
+
+                     <script>
+                      function loginalert(){
+                       alert("Please login to buy product" )}                      </script>
+
+                     {% if request.user.is_authenticated %}
+                     <a href="{% url 'buy' product.id %}" class="btn  float-right btn-success">Buy</a>
+
+
+                        {% if item_exist %}
+                      <a href="{% url 'show-cart' %}" class="btn float-right mr-2 btn-warning">Go To Cart</a>
+                        {% else %}
+                      <a href="{% url 'add-to-cart' product.id %}" class="btn float-right mr-2 text-light btn-dark">Add To Cart</a>
+                        {% endif %}
+                      {% endif %}
+
+                      {% if not request.user.is_authenticated %}
+                      <a href="{% url 'login' %}" onclick="show()" class="btn float-right mr-2 btn-warning">Add To Cart</a>
+                      <a href="{% url 'login' %}" onclick="loginalert()" class="btn  mx-2 float-right btn-success">Buy</a>
+
+                       {% endif %}
+                       
+                       <script>
+                       function show(){
+                        alert("Please login to add product in card" )}                      </script>
+
                     </div>
               </div>
         </div>
