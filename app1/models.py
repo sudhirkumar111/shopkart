@@ -77,7 +77,11 @@ STATUS_CHOICES = (
   ('Packed','Packed'),
   ('On The Way','On The Way'),
   ('Delivered','Delivered'),
-  ('Cancel','Cancel')
+  ('Cancel','Cancel'),
+  ('Return_Requested','Return Requested'),
+  ('Returned','Returned'),
+  ('Picked up','Picked up'),
+  
 )
 
 class OrderPlaced(models.Model):
@@ -87,5 +91,6 @@ class OrderPlaced(models.Model):
  quantity = models.PositiveIntegerField(default=1)
  ordered_date = models.DateTimeField(auto_now_add=True)
  status = models.CharField(max_length=50,choices=STATUS_CHOICES,default='Pending')
+
 
 

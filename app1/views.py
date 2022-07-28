@@ -255,6 +255,16 @@ def cancel_order(request,id):
         get_order.save()
         return HttpResponseRedirect('/orders/')
 
+def return_order(request,id):
+    if request.user.is_authenticated:
+        get_order = OrderPlaced.objects.get(id=id)
+        print(get_order)
+        get_order.status=STATUS_CHOICES[5][0]
+        print(STATUS_CHOICES)
+        print(STATUS_CHOICES[5][0])
+        get_order.save()
+        return HttpResponseRedirect('/orders/')
+
 
 def buynow(request,id):
     if request.user.is_authenticated:

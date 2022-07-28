@@ -30,18 +30,32 @@
                         <tbody>
                             {% for op in order_placed %}
                           <tr>
-                            <th scope="row">{{forloop.counter}}</th>
-                            <td> <img src="{{op.product.img.url}}" style="height: 80px;width:60px"><br><strong>{{op.product.name}}</strong><p>{{op.product.desc}}</p> 
+                            <th class="pt-2" scope="row">{{forloop.counter}}</th>
+                            <td class="pt-2"> <img src="{{op.product.img.url}}"  style="height: 80px;width:60px"><br><strong>{{op.product.name}}</strong><p>{{op.product.desc}}</p> 
                             </td>
-                            <td>{{op.product.price}}</td>
+                            <td class="pt-5">{{op.product.price}}</td>
 
-                            <td>{{op.quantity}}</td>
-                            <td>{{op.ordered_date}}</td>
-                            <td>{{op.status}}</td>
-                            <td>{% if op.status == 'Cancel' %}
-                                <small>Order Cancelled</small>
-                                {% else %} <a href="{% url 'cancel' op.id %}" class="btn btn-warning btn-sm">Cancel Order</a>{% endif %}</td>
-                            </tr>  {% endfor %}
+                            <td class="pt-5">{{op.quantity}}</td>
+                            <td class="pt-5">{{op.ordered_date}}</td>
+                            <td class="pt-5">{{op.status}}</td>
+                            <td class="pt-5">{% if op.status == 'Cancel' %}
+                                <strong class="alert alert-danger">Order Cancelled</strong>
+                                {% elif op.status == 'Delivered' %}
+                                <a href="{% url 'return-order' op.id %}" class="btn round btn-danger font-weight-bold text-light  btn-outline-success btn-md p-2">Request Return  <i class="bi bi-arrow-return-right"></i></a>
+                                {% elif op.status == 'Return_Requested' %}
+                                  <strong class="alert alert-warning">Return Requested</strong>
+                                {% elif op.status == 'Returned' %}
+                                  <strong class="alert alert-success">Order Returned</strong>
+                                {% elif op.status == 'Picked up' %}
+                                  <strong class="alert alert-success">Order Picked up</strong>
+                                {% elif op.status == 'Cancel' or op.status == 'Accepted' or op.status == 'On The Way' or op.status == 'Packed' %} <a href="{% url 'cancel' op.id %}" class="btn btn-warning btn-sm">Cancel Order</a>
+                                {% else %}
+                                <strong class="alert alert-dark">pending</strong>
+                                {% endif %}
+                              </td>
+                                  
+                               
+                              </tr>  {% endfor %}
                           
                         </tbody>
                       </table>

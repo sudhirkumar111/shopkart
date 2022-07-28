@@ -19,6 +19,9 @@ class ShippingAdmin(admin.ModelAdmin):
 class OrderPlacedAdmin(admin.ModelAdmin):
     list_display = ['id','user','ship_add','product','quantity','ordered_date','status']
 
+class OrderReturnAdmin(admin.ModelAdmin):
+    list_display = ['id','user','ship_add','product','quantity','ordered_date','status']
+
 
 
 
