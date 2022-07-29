@@ -13,13 +13,15 @@ from django.views.generic.detail import DetailView
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
+from .serializers import CategorySerializer, ProductSerializer
+from rest_framework import generics
+
 
 # Create your views here.
 def home(request):
     categories = Category.objects.all()
     if request.user.is_authenticated:
          cart=Cart.objects.filter(user=request.user)
-         
     else:
         cart=None
 
@@ -279,3 +281,19 @@ def buynow(request,id):
 
 def order_success(request):
     return render(request,'order_placed_successfully.html')
+
+class ProductListCreate(generics.ListCreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+class ProductRUD(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+class CategoryListCreate(generics.ListCreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class CategoryRUD(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer

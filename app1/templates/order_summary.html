@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 
@@ -51,6 +51,8 @@
        {% endif %}
         </div>
         
+        
+        
             <div class="col-lg-3">
                 <div class="card shadow" style="width:30rem" >
                     <div class="card-body">
@@ -88,8 +90,13 @@
 
      
     </div>
-
+      <div class="row mx-auto">
+        <div><br>
+          <img src="{% static 'image/payment.png' %}" class="d-block mx-auto" alt="">
     
+        </div>
+      </div>
+  
 
 
 

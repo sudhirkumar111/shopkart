@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 from app1 import views
@@ -22,6 +22,13 @@ from app1.forms import MyPasswordResetForm, MySetPasswordForm
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    #api urls
+    path('api/',include('rest_framework.urls')),
+    path('product-api/',views.ProductListCreate.as_view()),
+    path('product-api/<pk>/',views.ProductRUD.as_view()),
+    path('category-api/',views.CategoryListCreate.as_view()),
+    path('category-api/<pk>/',views.CategoryRUD.as_view()),
+
     path('admin/', admin.site.urls),
     path('',views.home, name='home'),
     path('about/',views.about, name='about'),

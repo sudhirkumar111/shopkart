@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,19 +22,28 @@
         </button>
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav mr-auto font-weight-bold">
             <li class="nav-item ">
              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                </li>
             <li class="nav-item">
               <a class="nav-link" href="/about">About us</a>
             </li>
-           
-            
-
             <li class="nav-item">
-              <a class="nav-link " href="/contact">Contact</a>
+              <a class="nav-link mr-5" href="/contact">Contact</a>
             </li>
+
+            <form class="form-inline mr-5" >
+              <input class="form-control mr-sm-2" type="search " style="width:400px" placeholder="Search for Product" aria-label="Search">
+              <button class="btn btn-primary my-2 my-sm-0"  type="submit">Search</button>
+            </form>
+          
+            <!-- <li class="nav-item">
+              <a class="nav-link mr-5" href="/contact">Become Seller</a>
+            </li>
+             -->
+
+            
             
           </ul>
           
@@ -82,8 +92,10 @@
 
 
       {% block content %}{% endblock %}
+      <div class="container-fluid">
 
-      <footer class="bg-dark mt-5 text-center">
+
+      <footer class="bg-dark mt-4 text-center">
         <!-- Grid container -->
         <div class="container p-4 pb-0">
           <!-- Section: Social media -->
@@ -128,6 +140,6 @@
           <a class="text-dark" href=""><strong class="text-danger">Shopkart</strong></a>
         </div>
         <!-- Copyright -->
-      </footer>
+      </footer></div>
 </body>
 </html>
