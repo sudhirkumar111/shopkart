@@ -15,11 +15,15 @@ from django.contrib.auth.decorators import login_required
 
 from .serializers import CategorySerializer, ProductSerializer
 from rest_framework import generics
+import razorpay
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
 def home(request):
+
     categories = Category.objects.all()
+    print(categories[3].name)
     if request.user.is_authenticated:
          cart=Cart.objects.filter(user=request.user)
     else:
@@ -225,22 +229,24 @@ def order_summary(request):
         total_amount = 0
         for item in order:
             total_amount+=item.product.price*item.quantity
-            
+        
         address = ShippingDetail.objects.filter(user=request.user)
         return render(request,'order_summary.html',{'total_amount':total_amount,'order':order,'address':address})
+    
     else:
         return render(request,'order_summary.html')
 
-def payment_view(request):
+def complete_order(request):
     if request.user.is_authenticated:
         add_id = request.GET.get('cust_add')
+        amount = request.GET.get('amount')
         user=request.user
         cartid = Cart.objects.filter(user = user)
         ship_detail = ShippingDetail.objects.get(id=add_id)
         for cid in cartid:
             OrderPlaced(user=user, ship_add=ship_detail, product=cid.product, quantity=cid.quantity).save()
             cid.delete()
-        return HttpResponseRedirect('/orders/')
+        return render(request, 'payment.html',{'amount':amount})
 	      
 
 def orders(request):
@@ -267,6 +273,21 @@ def return_order(request,id):
         get_order.save()
         return HttpResponseRedirect('/orders/')
 
+    
+    categories = Category.objects.all()
+    
+    if request.user.is_authenticated:
+         cart=Cart.objects.filter(user=request.user)
+    else:
+        cart=None
+
+    categoryid = request.GET.get('category')
+    if categoryid:
+        products=Product.objects.filter(category=categoryid)
+    else:
+        products=Product.objects.all()
+    return render(request,'productbycategory.html',{'products':products,'cart':cart,'categories':categories})
+
 
 def buynow(request,id):
     if request.user.is_authenticated:
@@ -278,9 +299,17 @@ def buynow(request,id):
     else:
             return HttpResponseRedirect('/login/')
 
+@csrf_exempt
+def success(request):
+    return HttpResponseRedirect("Payment successful")
 
-def order_success(request):
-    return render(request,'order_placed_successfully.html')
+def paymentview(request):
+        total_amount=request.GET.get('amount')
+        client = razorpay.Client(auth=("rzp_test_G5z4KTwAhUWM9n","6KPIw5sHfmo7cBQxxVEqnLRn"))
+        payment = client.order.create({'amount': int(total_amount)*100, 'currency': 'INR','payment_capture': '1'})
+        print(payment)
+        return render(request,'payment.html',{'payment_id':payment.get('id')})
+    
 
 class ProductListCreate(generics.ListCreateAPIView):
     queryset = Product.objects.all()
@@ -297,3 +326,14 @@ class CategoryListCreate(generics.ListCreateAPIView):
 class CategoryRUD(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+def search(request):
+    if 'search' in request.GET:
+        search = request.GET.get('search')
+    category = Category.objects.filter(name=search)
+    product = Product.objects.filter(Q(desc__icontains = search)| Q(name__icontains=search) ) 
+    print(category)
+    
+   
+    return render(request,'search.html',{'product':product,'search':search})

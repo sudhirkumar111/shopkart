@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <p class="display-4 my-5">Showing result for keyword <span class="text-danger font-weight-bold">"{{search}}"</span></p> <hr>
+    <div class="row">
+                {% if product %}
+                {% for product in product %}
+                
+                <div class="col-lg-3 mx-4">
+                  <div class="card mx-auto bg-light mb-3" id={{product.id}} style="width: 18rem;">
+                    <a href="{% url 'product-detail' product.id %}"><img class="card-img-top" style="height: 20rem;" src="{{product.img.url}}" alt="Card image cap"></a>
+                    <div class="card-body">
+                      <p class="card-title">{{product.name}}</p>
+                      <p class="card-text"><b>{{product.desc}}</b></p>
+                        <strong><small>Free Delivery</small></strong>
+        
+                      <div class="card-footer bg-dark text-light">
+                        <strong>Rs.{{product.price}}</strong><br>
+        
+                        </div></div></div></div>{% endfor %}
+                        {% else %}
+                        <div class="card bg-light mx-auto mb-5 shadow">
+                        <div class="card-body">
+                            <h1>Product not found for keyword "{{search}}"</h1>
+
+                        </div>
+
+                        </div>
+                        {% endif %}
+
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

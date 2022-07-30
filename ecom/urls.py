@@ -49,7 +49,7 @@ urlpatterns = [
     path('add-to-cart/<id>/', views.add_to_cart, name='add-to-cart'),
     path('show-cart/', views.show_cart, name='show-cart'),
     path('shipping-address/', views.shipping_view, name='shipping-detail'),
-    path('payment/', views.payment_view,name='payment'),
+    path('complete_order/', views.complete_order,name='complete_order'),
     path('address/', views.address_view,name='address'),
     path('delete/<id>/', views.delet_address,name='delete'),
     path('delete-cart-product/<id>/', views.delete_cart_product,name='delete_cart_product'),
@@ -58,10 +58,13 @@ urlpatterns = [
     path('plus_quantity/<id>/', views.plus_quantity,name='plus_quantity'),
     path('minus_quantity/<id>/', views.minus_quantity,name='minus_quantity'),
     path('order-summary/', views.order_summary,name='order_summary'),
+    path('payment/',views.paymentview,name='payment'),
     path('orders/', views.orders,name='orders'),
     path('cancel/<id>/', views.cancel_order,name='cancel'),
     path('return-order/<id>/', views.return_order,name='return-order'),
     path('buy/<id>/', views.buynow,name='buy'),
+    path('success/', views.success,name='success'),
+    path('search/',views.search,name='search')
 
 
 

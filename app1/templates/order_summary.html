@@ -51,15 +51,15 @@
        {% endif %}
         </div>
         
-        
-        
-            <div class="col-lg-3">
-                <div class="card shadow" style="width:30rem" >
+        <div class="row">
+          <div class="col-lg-7">
+                <div class="card shadow" style="width:48rem" >
                     <div class="card-body">
-    
-                      <h5 class="card-title">Select Address</h5><hr>
+                      {% if request.user.is_authenticated %}
+                      <h5 class="card-title">Select Delivery Address</h5><hr>
                       <form action="/payment">
-                        {% if request.user.is_authenticated %}
+                        <input type="hidden" name="amount" value="{{total_amount}}">
+                        
                         {% for add in address %}
                         <span> <input type="radio" name="cust_add" id="{{add.id}}" value="{{add.id}}" ></span>
                         <strong class="text-muted">{{add.fname|title}} {{add.lname|title}}</strong>
@@ -70,23 +70,28 @@
                        
     
                         {% endfor %}
-                        <button type="submit" onclick="show()" class="btn float-right font-weight-bold btn-success">Continue</button>
+                        <button type="submit" class="btn float-right font-weight-bold btn-success">Purchase</button>
                       </form>
-                      <script>
+                      <form action="/address">
+                        <input type="hidden" name="user" value="{{request.user}}">
+                        <button type="submit" class="btn btn-primary" href="{% url 'shipping-detail' %}">Add Address</button>
+
+                      </form>
+                      <!-- <script>
                              function show(){
                         alert("Order Placed Successfully!")
                       }
-                      </script>
+                      </script> -->
                      
                       
                            
                       
-                  {% endif %}
+                  {% endif %}</div>
                     </div>
                   </div>
               
             </div>
-        
+       
 
      
     </div>
