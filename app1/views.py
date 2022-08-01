@@ -243,6 +243,8 @@ def complete_order(request):
         user=request.user
         cartid = Cart.objects.filter(user = user)
         ship_detail = ShippingDetail.objects.get(id=add_id)
+        
+
         for cid in cartid:
             OrderPlaced(user=user, ship_add=ship_detail, product=cid.product, quantity=cid.quantity).save()
             cid.delete()
