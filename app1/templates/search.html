@@ -12,7 +12,7 @@
                   <div class="card mx-auto bg-light mb-3" id={{product.id}} style="width: 18rem;">
                     <a href="{% url 'product-detail' product.id %}"><img class="card-img-top" style="height: 20rem;" src="{{product.img.url}}" alt="Card image cap"></a>
                     <div class="card-body">
-                      <p class="card-title">{{product.name}}</p>
+                      <p class="card-title text-danger font-weight-bold">{{product.name|title}}</p>
                       <p class="card-text"><b>{{product.desc}}</b></p>
                         <strong><small>Free Delivery</small></strong>
         

@@ -17,6 +17,9 @@ class Product(models.Model):
     price = models.IntegerField()
     img = models.ImageField()
 
+    def __str__(self):
+      return "(" + self.name+ ")" + " " + self.desc
+
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -73,6 +76,10 @@ class ShippingDetail(models.Model):
         landmark = models.CharField(max_length=60)
 
 
+        def __str__(self):
+           return self.fname 
+
+
 STATUS_CHOICES = (
   ('Accepted','Accepted'),
   ('Packed','Packed'),
@@ -92,6 +99,11 @@ class OrderPlaced(models.Model):
  quantity = models.PositiveIntegerField(default=1)
  ordered_date = models.DateTimeField(auto_now_add=True)
  status = models.CharField(max_length=50,choices=STATUS_CHOICES,default='Pending')
+
+
+
+ def __str__(self):
+  return self.product.name
 
 
 

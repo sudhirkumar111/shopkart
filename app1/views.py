@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Product, Category,Cart, ShippingDetail,OrderPlaced,STATUS_CHOICES
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -246,7 +246,10 @@ def complete_order(request):
         for cid in cartid:
             OrderPlaced(user=user, ship_add=ship_detail, product=cid.product, quantity=cid.quantity).save()
             cid.delete()
-        return render(request, 'payment.html',{'amount':amount})
+        client = razorpay.Client(auth=("rzp_test_G5z4KTwAhUWM9n","6KPIw5sHfmo7cBQxxVEqnLRn"))
+        payment = client.order.create({'amount': int(amount)*100, 'currency': 'INR','payment_capture': '1'})
+        print(payment)
+        return render(request,'payment.html',{'amount':int(amount)*100,'payment_id':payment.get('id')})
 	      
 
 def orders(request):
@@ -299,16 +302,11 @@ def buynow(request,id):
     else:
             return HttpResponseRedirect('/login/')
 
+
+    
 @csrf_exempt
 def success(request):
-    return HttpResponseRedirect("Payment successful")
-
-def paymentview(request):
-        total_amount=request.GET.get('amount')
-        client = razorpay.Client(auth=("rzp_test_G5z4KTwAhUWM9n","6KPIw5sHfmo7cBQxxVEqnLRn"))
-        payment = client.order.create({'amount': int(total_amount)*100, 'currency': 'INR','payment_capture': '1'})
-        print(payment)
-        return render(request,'payment.html',{'payment_id':payment.get('id')})
+        return render(request,'success.html')
     
 
 class ProductListCreate(generics.ListCreateAPIView):

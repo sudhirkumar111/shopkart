@@ -3,7 +3,7 @@
 
 
 {% block content %}
-<style>
+<!-- <style>
   a:hover{
     text-decoration: none;
     color:white;
@@ -29,8 +29,55 @@
 
     
   </div>
-</div>
-
+</div> -->
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="row">
+        <div class="col-6">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="..." alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="..." alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="..." alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="..." alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
 
 
 <div class="container-fluid">
@@ -127,8 +174,8 @@
         <div class="col-lg- mx-3">
           <div class="card mx-auto bg-light mb-3" id={{product.id}} style="width: 18rem;">
             <a href="{% url 'product-detail' product.id %}"><img class="card-img-top" style="height: 20rem;" src="{{product.img.url}}" alt="Card image cap"></a>
-            <div class="card-body">
-              <p class="card-title">{{product.name}}</p>
+            <div class="card-body shadow rounded">
+              <p class="card-title text-primary font-weight-bold">{{product.name|title}}</p>
               <p class="card-text"><b>{{product.desc}}</b></p>
                 <strong><small>Free Delivery</small></strong>
 
@@ -157,4 +204,7 @@
 
   </div>
 </div>
+
+   
+
 {% endblock %}
