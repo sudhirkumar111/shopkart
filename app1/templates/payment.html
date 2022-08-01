@@ -5,19 +5,23 @@
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-lg-8">
-            {% if messages %}
-            {% for msg in messages %}
-                <p class="alert  font-weight-bold alert-{{msg.tags}}">{{msg}}</p>
-            {% endfor %}
-              
-            {% endif %}
-            <h1 class="display-4 mb-3">Payment Page</h1>
+        <div class="col-lg">
+           
+            <h1 class="display-4 text-center text-info font-weight-bold  mb-3">Payment Page</h1><hr>
            
                 {% csrf_token %}
-                <div class="text-center mx-auto">
-                    <button class="btn btn-lg p-3 btn-success" id="rzp-button1">Pay Now</button>
-                </div>
+
+
+                <div class="card bg-muted shadow round mx-auto" style="width: 18rem;">
+                    <img class="card-img-top mx-auto mt-4" style="width: 150px;height: 150px;" src="https://cdn.pixabay.com/photo/2014/04/03/10/00/shopping-cart-309592_1280.png" alt="Card image cap">
+                    <div class="card-body mx-auto">
+                        <strong class="text-danger display-4">ShopKart</strong><br><hr>
+                        <button class="btn my-3 ml-5  btn-success shadow rounded" id="rzp-button1">Pay Now</button>
+
+                                         </div>
+                  </div>
+                
+               
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
                 var options = {    
